@@ -7,15 +7,21 @@
 
     <title>Tizen Wearable Web IDE - Tizen Wearable - Tizen Wearable basic Application</title>
 
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <script src="js/main.js"></script>
 </head>
 
 <body>
-  <div class=contents>
-  	<div style='margin:auto;'>
-  		<p class=content_text id=textbox>Hooray!</p>
-  	</div>
-  </div>
+	<div class="ui-page ui-page-active" id="main">
+		<header>
+			<h2 class="ui-title">RSS Notifier</h2>
+		</header>
+		<div class="ui-content ui-content-padding">
+			<p class=content_text id=textbox>Hooray!</p>
+		</div>
+	</div>
+	<script src="lib/tau/wearable/js/tau.min.js"></script>
 </body>
 </html>
