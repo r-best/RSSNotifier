@@ -1,4 +1,4 @@
-function fetchRSSUpdateTime(rssurl){
+function fetchRSSUpdateTime(rssurl, callback){
 	var http = new XMLHttpRequest();
 	
 	http.onreadystatechange = () => {
@@ -8,7 +8,7 @@ function fetchRSSUpdateTime(rssurl){
 				box = document.querySelector('#textbox');
 				
 				rss = new DOMParser().parseFromString(http.responseText, 'text/xml');
-				box.innerHTML = rss.getElementsByTagName('lastBuildDate')[0].innerHTML;
+				callback(rss.getElementsByTagName('lastBuildDate')[0].innerHTML);
 			}
 			else{
 				alert("Error fetching RSS feed");
@@ -22,6 +22,7 @@ function fetchRSSUpdateTime(rssurl){
 window.onload = function () {
     // TODO:: Do your initialization job
 	console.log("INITIALIZING APP");
+
     // add eventListener for tizenhwkey
     document.addEventListener('tizenhwkey', function(e) {
         if(e.keyName == "back")
@@ -32,12 +33,25 @@ window.onload = function () {
     });
     
     document.addEventListener('rotarydetent', () => {
-    	fetchRSSUpdateTime('http://mbmbam.libsyn.com/rss');
+//    	fetchRSSUpdateTime('http://mbmbam.libsyn.com/rss', (updateTime) => {
+//    		console.log(updateTime);
+//    	});
     });
 
-    document.addEventListener("click", function(){
-    	box = document.querySelector('#textbox');
-    	box.innerHTML = "Hooray!";
+    document.addEventListener("click", () => {
+    	
     });
+    
+    var page = document.getElementById("sublist"),
+    list = document.getElementById("subs"),
+    listHelper;
+
+	page.addEventListener("pageshow", () => {
+	   listHelper = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1000});
+	});
+	
+	page.addEventListener("pagehide", () => {
+	   listHelper.destroy();
+	});
     
 };

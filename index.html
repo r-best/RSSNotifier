@@ -14,14 +14,43 @@
 </head>
 
 <body>
-	<div class="ui-page ui-page-active" id="main">
+	<!-- Main page, lists all RSS subscriptions -->
+	<div class="ui-page ui-page-active" id="sublist">
 		<header>
 			<h2 class="ui-title">RSS Notifier</h2>
+		</header>
+		<div class="ui-content ui-content-padding">
+			<ul class="ui-listview ui-snap-listview expand-list" id="subs">
+				<li>
+					<div class="ui-marquee ui-marquee-gradient">1.SnapListview with Marquee SnapListview with Marquee</div>
+					<div class="ui-li-sub-text">sub-text</div>
+				</li>
+				<li>
+					<div class="ui-marquee ui-marquee-gradient">2.SnapListview with Marquee SnapListview with Marquee</div>
+					<div class="ui-li-sub-text">sub-text</div>
+				</li>
+				<li>
+					<div class="ui-marquee ui-marquee-gradient">3.SnapListview with Marquee SnapListview with Marquee</div>
+					<div class="ui-li-sub-text">sub-text</div>
+				</li>
+				<li>
+					<div class="ui-marquee ui-marquee-gradient">4.SnapListview with Marquee SnapListview with Marquee</div>
+					<div class="ui-li-sub-text">sub-text</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Page where you can add a new subscription -->
+	<div class="ui-page" id="addsub">
+		<header>
+			<h2 class="ui-title">Add RSS Subscription</h2>
 		</header>
 		<div class="ui-content ui-content-padding">
 			<p class=content_text id=textbox>Hooray!</p>
 		</div>
 	</div>
+
 	<script src="lib/tau/wearable/js/tau.min.js"></script>
 </body>
 </html>

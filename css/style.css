@@ -7,17 +7,13 @@ body {
     background-color:#222;
 }
 
-.contents {
-	display: flex;
-	display: -webkit-flex;
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	height:320px;
+.ui-listview.expand-list li .ui-li-sub-text
+{
+   opacity: 0;
+   -webkit-transition: all;
 }
-
-
-.content_text {
-	font-weight:bold;
-	font-size:5em;
-	color:#fff;
+.ui-listview.expand-list li.ui-snap-listview-selected .ui-li-sub-text
+{
+   opacity: 1;
+   -webkit-transition: all;
 }
