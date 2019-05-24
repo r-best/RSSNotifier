@@ -35,11 +35,9 @@ window.onload = function () {
     	fetchRSSUpdateTime('http://mbmbam.libsyn.com/rss');
     });
 
-    // Sample code
-    var textbox = document.querySelector('.contents');
-    textbox.addEventListener("click", function(){
+    document.addEventListener("click", function(){
     	box = document.querySelector('#textbox');
-    	box.innerHTML = box.innerHTML == "Basic" ? "Sample" : "Basic";
+    	box.innerHTML = "Hooray!";
     });
     
 };
