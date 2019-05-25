@@ -76,9 +76,15 @@ window.onload = function(){
 
     // add eventListener for tizenhwkey
     document.addEventListener('tizenhwkey', (e) => {
-        if(e.keyName === "back")
-        	try {tizen.application.getCurrentApplication().exit();}
-        	catch(ignore) {}
+        if(e.keyName === "back"){
+        	var page = document.getElementsByClassName('ui-page-active')[0].id;
+        	
+        	if(page === "sublist")
+	        	try {tizen.application.getCurrentApplication().exit();}
+	        	catch(ignore) {}
+        	else
+        		window.history.back();
+        }
     });
 
 	// Initialize Subscription List Page
