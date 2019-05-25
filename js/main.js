@@ -1,42 +1,52 @@
 function fetchRSS(rssurl){
-	var http = new XMLHttpRequest();
+	return new Promise((resolve, reject) => {
+		var http = new XMLHttpRequest();
 
-	http.open("GET", rssurl, false);
-	http.send();
-	
-	if(http.status === 200){
-		var rss = new DOMParser().parseFromString(http.responseText, 'text/xml');
-		return {
-			"name": rss.getElementsByTagName('title')[0].innerHTML,
-			"lastUpdate": rss.getElementsByTagName('lastBuildDate')[0].innerHTML
+		http.onreadystatechange = () => {
+			if(http.readyState == http.DONE){
+				if(http.status == 200){
+					var rss = new DOMParser().parseFromString(http.responseText, 'text/xml');
+					return resolve({
+						"name": rss.getElementsByTagName('title')[0].innerHTML,
+						"lastUpdate": rss.getElementsByTagName('lastBuildDate')[0].innerHTML
+					});
+				}
+				else{
+					return resolve({
+						"name": "Error retrieving feed data",
+						"lastUpdate": ""
+					});
+				}
+			}
 		};
-	}
-	else{
-//		alert("Error fetching RSS feed");
-		return {
-			"name": "Error retrieving feed data",
-			"lastUpdate": ""
-		};
-	}
+		http.open("GET", rssurl);
+		http.send();
+	});
 }
 
 var SUBS = ["http://mbmbam.libsyn.com/rss", "http://adventurezone.libsyn.com/rss", "http://rosebuddies.libsyn.com/rss"];
 
 // Helper function to create a list element
 function genListElement(sub){
-	var subscription = fetchRSS(sub);
-	
+	// Initialize list element
 	var li = document.createElement('li');
 	
-	var textNode = document.createElement('div');
-	textNode.setAttribute("class", "ui-marquee ui-marquee-gradient");
-	textNode.innerHTML = subscription.name;
-	li.appendChild(textNode);
+	// Add title & subtitle to list element with placeholder text
+	var title = document.createElement('div');
+	title.setAttribute("class", "ui-marquee ui-marquee-gradient");
+	title.innerHTML = "Loading";
+	li.appendChild(title);
 	
-	textNode = document.createElement('div');
-	textNode.setAttribute("class", "ui-li-sub-text");
-	textNode.innerHTML = subscription.lastUpdate;
-	li.appendChild(textNode);
+	var subtitle = document.createElement('div');
+	subtitle.setAttribute("class", "ui-li-sub-text");
+	subtitle.innerHTML = "Loading";
+	li.appendChild(subtitle);
+	
+	// Asynchronously fetch the real title & subtitle text, update when available
+	fetchRSS(sub).then((res) => {
+		title.innerHTML = res.name;
+		subtitle.innerHTML = res.lastUpdate;
+	});
 	
 	return li;
 }
