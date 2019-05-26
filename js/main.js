@@ -43,12 +43,6 @@ function genListElement(sub){
 	subtitle.innerHTML = "Loading";
 	li.appendChild(subtitle);
 	
-	// Asynchronously fetch the real title & subtitle text, update when available
-//	var rss = await fetchRSS(sub);
-//
-//	title.innerHTML = res.name;
-//	subtitle.innerHTML = res.lastUpdate;
-	
 	return li;
 }
 
@@ -59,10 +53,11 @@ function initSubsListPage(){
 	page.addEventListener("pageshow", () => {
 		var list = document.getElementById("subs");
 		while(list.firstChild) list.removeChild(list.firstChild); // Remove all current list elements
-		// Add a new list element for each subscription
-		SUBS.forEach(sub => {
-			list.appendChild(genListElement(sub));
-		});
+
+		// Add a new default list element for each subscription
+		SUBS.forEach(sub => list.appendChild(genListElement(sub)));
+
+		// Asynchronously fetch the real title & subtitle text for each element, updating when available
 		new Promise(async(resolve, reject) => {
 			var node = list.childNodes[0];
 			while(true){
