@@ -45,5 +45,6 @@ window.onload = function(){
 
 	// Initialize Subscription List Page
 	initSubsListPage();
+	initDetailsPage();
 	initAddSubPage();
 };

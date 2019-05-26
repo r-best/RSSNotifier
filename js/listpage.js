@@ -34,6 +34,10 @@ function genListElement(sub){
 	// Initialize list element
 	var li = document.createElement('li');
 	li.rssurl = sub;
+	li.addEventListener("click", () => {
+		document.getElementById("courier").innerHTML = sub;
+		tau.changePage("#subdetails");
+	})
 	
 	// Add title & subtitle to list element with placeholder text
 	var title = document.createElement('div');
