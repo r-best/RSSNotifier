@@ -30,6 +30,7 @@ var SUBS = ["http://mbmbam.libsyn.com/rss", "http://adventurezone.libsyn.com/rss
 function genListElement(sub){
 	// Initialize list element
 	var li = document.createElement('li');
+	li.rssurl = sub;
 	
 	// Add title & subtitle to list element with placeholder text
 	var title = document.createElement('div');
@@ -43,10 +44,10 @@ function genListElement(sub){
 	li.appendChild(subtitle);
 	
 	// Asynchronously fetch the real title & subtitle text, update when available
-	fetchRSS(sub).then((res) => {
-		title.innerHTML = res.name;
-		subtitle.innerHTML = res.lastUpdate;
-	});
+//	var rss = await fetchRSS(sub);
+//
+//	title.innerHTML = res.name;
+//	subtitle.innerHTML = res.lastUpdate;
 	
 	return li;
 }
@@ -62,7 +63,18 @@ function initSubsListPage(){
 		SUBS.forEach(sub => {
 			list.appendChild(genListElement(sub));
 		});
-		listHelper = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1000});
+		new Promise(async(resolve, reject) => {
+			var node = list.childNodes[0];
+			while(true){
+				var rss = await fetchRSS(node.rssurl);
+				node.querySelector("div.ui-marquee.ui-marquee-gradient").innerHTML = rss.name;
+				node.querySelector("div.ui-li-sub-text").innerHTML = rss.lastUpdate;
+
+				if(node.nextSibling) node = node.nextSibling;
+				else break;
+			}
+			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1000});
+		});
 	});
 
 	page.addEventListener("pagehide", () => {
