@@ -46,7 +46,6 @@ class NumberPicker extends HTMLElement{
 		// Set event handlers
 		this.addEventListener('pageshow', () => {
 			// Set page attributes
-			console.log("getval", this.getAttribute('value'))
 			this.min = this.getAttribute('min');
 			if(typeof(this.min) === 'string') this.min = parseInt(this.min);
 			this.max = this.getAttribute('max');
@@ -81,7 +80,6 @@ class NumberPicker extends HTMLElement{
 	static pick(id, startVal, min, max, step){
 		var numberPicker = document.querySelector("#number-picker-page");
 		numberPicker.storeback_id = id;
-		console.log("startval", startVal);
 		if(startVal) numberPicker.setAttribute("value", startVal);
 		if(min) numberPicker.setAttribute("min", min);
 		if(max) numberPicker.setAttribute("max", max);
@@ -100,16 +98,13 @@ class NumberPicker extends HTMLElement{
 class NumberPickerActivator extends HTMLElement{
 	constructor(){
 		super();
-		this.addEventListener('click', () => {
-			console.log("innerhtml", this.innerHTML)
-			NumberPicker.pick(
-				this.id,
-				this.innerHTML,
-				this.getAttribute('min'),
-				this.getAttribute('max'),
-				this.getAttribute('step')
-			);
-		});
+		this.addEventListener('click', () => NumberPicker.pick(
+			this.id,
+			this.innerHTML,
+			this.getAttribute('min'),
+			this.getAttribute('max'),
+			this.getAttribute('step')
+		));
 	}
 
 	connectedCallback(){

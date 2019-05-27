@@ -58,8 +58,11 @@
 			<label for="addsub-url">URL:</label>
 			<input type="text" id="addsub-url" />
 			
-			<label for="addsub-hour">Hour:</label>
-			<number-picker id="addsub-hour" min=-4 max=7 step=2>0</number-picker>
+			<label for="addsub-minute">Minute:</label><number-picker id="addsub-minute" min=1 max=60>1</number-picker><br/>
+			<label for="addsub-hour">Hour:</label><number-picker id="addsub-hour" min=1 max=24>1</number-picker><br/>
+			<label for="addsub-date">Date of Month:</label><number-picker id="addsub-date" min=1 max=31>1</number-picker><br/>
+			<label for="addsub-month">Month:</label><number-picker id="addsub-month" min=1 max=12>1</number-picker><br/>
+			<label for="addsub-day">Day of Week:</label><number-picker id="addsub-day" min=1 max=7>1</number-picker>
 		</div>
 		<footer class="ui-footer ui-bottom-button">
 			<a href="#" class="ui-btn">Confirm</a>
