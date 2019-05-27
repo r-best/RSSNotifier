@@ -55,7 +55,11 @@
 			<h2 class="ui-title">Add RSS Subscription</h2>
 		</header>
 		<div class="ui-content ui-content-padding">
-			<p class=content_text id=textbox>To be implemented</p>
+			<label for="addsub-url">URL:</label>
+			<input type="text" id="addsub-url" />
+			
+			<label for="addsub-hour">Hour:</label>
+			<number-picker id="addsub-hour" min=-4 max=7 step=2>0</number-picker>
 		</div>
 		<footer class="ui-footer ui-bottom-button">
 			<a href="#" class="ui-btn">Confirm</a>
