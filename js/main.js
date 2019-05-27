@@ -43,7 +43,7 @@ window.onload = function(){
         }
     });
 
-	// Initialize Subscription List Page
+	// Initialize Pages
 	initSubsListPage();
 	initDetailsPage();
 	initAddSubPage();

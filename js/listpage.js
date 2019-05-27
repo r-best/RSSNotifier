@@ -35,7 +35,7 @@ function genListElement(sub){
 	var li = document.createElement('li');
 	li.rssurl = sub;
 	li.addEventListener("click", () => {
-		document.getElementById("courier").innerHTML = sub;
+		document.getElementById("courier").data = sub;
 		tau.changePage("#subdetails");
 	})
 	

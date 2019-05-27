@@ -17,10 +17,3 @@ body {
    opacity: 1;
    -webkit-transition: all;
 }
-
-#courier{
-	visibility: hidden;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-}
