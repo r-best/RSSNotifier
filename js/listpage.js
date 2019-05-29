@@ -20,7 +20,7 @@ function refreshSubsList(){
 		while(list.firstChild) list.removeChild(list.firstChild); // Remove all current list elements
 
 		// Add a new default list element for each subscription
-		subs.forEach(sub => list.appendChild(genListElement(sub)));
+		subs.forEach(sub => list.appendChild(genListElement(sub.url)));
 
 		// Asynchronously fetch the real title & subtitle text for each element, updating when available
 		new Promise(async(resolve, reject) => {

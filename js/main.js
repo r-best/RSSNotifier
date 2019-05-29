@@ -28,7 +28,7 @@ function fetchRSS(rssurl){
 
 function getSubs(){
 	if(tizen.preference.exists('subs'))
-		return tizen.preference.getValue('subs');
+		return JSON.parse(tizen.preference.getValue('subs'));
 	else
 		return [];
 }
