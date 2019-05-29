@@ -1,13 +1,26 @@
+var listWidget;
 function initSubsListPage(){
     var page = document.getElementById("sublist");
-    var listHelper;
 
 	page.addEventListener("pageshow", () => {
+		refreshSubsList();
+	});
+
+	page.addEventListener("pagehide", () => {
+		listWidget.destroy();
+	});
+}
+
+function refreshSubsList(){
+	if(listWidget) listWidget.destroy();
+	var subs = getSubs();
+
+	if(subs.length){
 		var list = document.getElementById("subs");
 		while(list.firstChild) list.removeChild(list.firstChild); // Remove all current list elements
 
 		// Add a new default list element for each subscription
-		SUBS.forEach(sub => list.appendChild(genListElement(sub)));
+		subs.forEach(sub => list.appendChild(genListElement(sub)));
 
 		// Asynchronously fetch the real title & subtitle text for each element, updating when available
 		new Promise(async(resolve, reject) => {
@@ -20,13 +33,9 @@ function initSubsListPage(){
 				if(node.nextSibling) node = node.nextSibling;
 				else break;
 			}
-			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1000});
+			listWidget = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1000});
 		});
-	});
-
-	page.addEventListener("pagehide", () => {
-		listHelper.destroy();
-	});
+	}
 }
 
 // Helper function to create a list element

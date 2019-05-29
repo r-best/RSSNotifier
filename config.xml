@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/RSSNotifier" version="1.0.0" viewmodes="maximized">
+    <tizen:app-widget id="7kyfFnBLMx.RSSNotifier.Widget" primary="true">
+        <tizen:widget-label>RSS Notifier</tizen:widget-label>
+        <tizen:widget-content src="widget/Widget/index.html">
+            <tizen:widget-size preview="widget/Widget/preview.png">2x2</tizen:widget-size>
+        </tizen:widget-content>
+    </tizen:app-widget>
     <tizen:application id="7kyfFnBLMx.RSSNotifier" package="7kyfFnBLMx" required_version="4.0"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
     <icon src="icon.png"/>
     <name>RSSNotifier</name>
+    <tizen:privilege name="http://tizen.org/privilege/notification"/>
+    <tizen:privilege name="http://tizen.org/privilege/alarm"/>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
     <tizen:profile name="wearable"/>
+    <tizen:setting background-support="disable" encryption="disable" hwkey-event="enable"/>
 </widget>

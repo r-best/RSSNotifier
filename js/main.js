@@ -26,9 +26,27 @@ function fetchRSS(rssurl){
 	});
 }
 
+function getSubs(){
+	if(tizen.preference.exists('subs'))
+		return tizen.preference.getValue('subs');
+	else
+		return [];
+}
+
 window.onload = function(){
     // TODO:: Do your initialization job
 	console.log("INITIALIZING APP");
+
+	// DEBUG: Set up preferences
+    tizen.preference.setValue('subs', JSON.stringify([
+		{
+			url: "http://mbmbam.libsyn.com/rss"
+		},{
+			url: "http://adventurezone.libsyn.com/rss"
+		},{
+			url: "http://rosebuddies.libsyn.com/rss"
+		}
+	]));
 
     // add eventListener for tizenhwkey
     document.addEventListener('tizenhwkey', (e) => {
