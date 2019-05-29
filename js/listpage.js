@@ -20,7 +20,7 @@ function refreshSubsList(){
 		while(list.firstChild) list.removeChild(list.firstChild); // Remove all current list elements
 
 		// Add a new default list element for each subscription
-		subs.forEach(sub => list.appendChild(genListElement(sub.url)));
+		subs.forEach(sub => list.appendChild(genListElement(sub)));
 
 		// Asynchronously fetch the real title & subtitle text for each element, updating when available
 		new Promise(async(resolve, reject) => {
@@ -42,7 +42,7 @@ function refreshSubsList(){
 function genListElement(sub){
 	// Initialize list element
 	var li = document.createElement('li');
-	li.rssurl = sub;
+	li.rssurl = sub.url;
 	li.addEventListener("click", () => {
 		document.getElementById("courier").data = sub;
 		tau.changePage("#subdetails");

@@ -1,5 +1,3 @@
-var SUBS = ["http://mbmbam.libsyn.com/rss", "http://adventurezone.libsyn.com/rss", "http://rosebuddies.libsyn.com/rss"];
-
 function fetchRSS(rssurl){
 	return new Promise((resolve, reject) => {
 		var http = new XMLHttpRequest();
@@ -7,11 +5,19 @@ function fetchRSS(rssurl){
 		http.onreadystatechange = () => {
 			if(http.readyState == http.DONE){
 				if(http.status == 200){
-					var rss = new DOMParser().parseFromString(http.responseText, 'text/xml');
-					return resolve({
-						"name": rss.getElementsByTagName('title')[0].innerHTML,
-						"lastUpdate": rss.getElementsByTagName('lastBuildDate')[0].innerHTML
-					});
+					try{
+						var rss = new DOMParser().parseFromString(http.responseText, 'text/xml');
+						return resolve({
+							"name": rss.getElementsByTagName('title')[0].innerHTML,
+							"lastUpdate": rss.getElementsByTagName('lastBuildDate')[0].innerHTML
+						});
+					}
+					catch(e){
+						return resolve({
+							"name": "Error retrieving feed data",
+							"lastUpdate": ""
+						});
+					}
 				}
 				else{
 					return resolve({
@@ -31,6 +37,10 @@ function getSubs(){
 		return JSON.parse(tizen.preference.getValue('subs'));
 	else
 		return [];
+}
+
+function setSubs(subs){
+	tizen.preference.setValue('subs', JSON.stringify(subs));
 }
 
 window.onload = function(){

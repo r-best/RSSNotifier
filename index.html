@@ -41,7 +41,14 @@
 			<h2 class="ui-title">Sub Settings</h2>
 		</header>
 		<div class="ui-content ui-content-padding">
-			<p id="test"></p>
+			<ul class="ui-listview ui-snap-listview expand-list" id="details-list">
+				<li>
+					<div id="details-url" class="ui-marquee ui-marquee-gradient"></div>
+				</li>
+				<li>
+					<button id="details-delete" class="ui-btn">Delete</button>
+				</li>
+			</ul>
 		</div>
 		<footer class="ui-footer ui-bottom-button">
 			<a href="#savebtn" class="ui-btn">Save Changes</a>
@@ -65,7 +72,7 @@
 			<label for="addsub-day">Day of Week:</label><number-picker id="addsub-day" min=1 max=7>1</number-picker>
 		</div>
 		<footer class="ui-footer ui-bottom-button">
-			<a href="#" class="ui-btn">Confirm</a>
+			<a id="addsub-confirm" class="ui-btn">Confirm</a>
 		</footer>
 	</div>
 	<script src="js/addpage.js"></script>
