@@ -1,5 +1,6 @@
 var listWidget;
 function initSubsListPage(){
+	console.log("Initializing subscription list page");
     var page = document.getElementById("sublist");
 
 	page.addEventListener("pageshow", () => {
@@ -8,6 +9,7 @@ function initSubsListPage(){
 
 	page.addEventListener("pagehide", () => {
 		listWidget.destroy();
+		listWidget = null;
 	});
 }
 
@@ -44,7 +46,7 @@ function genListElement(sub){
 	var li = document.createElement('li');
 	li.rssurl = sub.url;
 	li.addEventListener("click", () => {
-		document.getElementById("courier").data = sub;
+		document.getElementById("courier").data = sub.url;
 		tau.changePage("#subdetails");
 	})
 	

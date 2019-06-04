@@ -17,3 +17,7 @@ body {
    opacity: 1;
    -webkit-transition: all;
 }
+
+#details-delete{
+	color: red;
+}

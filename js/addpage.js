@@ -1,4 +1,5 @@
 function initAddSubPage(){
+	console.log("Initializing add subscription page");
 	var page = document.getElementById("addsub");
 
 	page.addEventListener("pageshow", () => {

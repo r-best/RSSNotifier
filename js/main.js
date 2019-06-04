@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param rssurl {string} The URL of the RSS feed to subscribe to
+ * @returns An object with 
+ */
 function fetchRSS(rssurl){
 	return new Promise((resolve, reject) => {
 		var http = new XMLHttpRequest();
@@ -12,19 +17,9 @@ function fetchRSS(rssurl){
 							"lastUpdate": rss.getElementsByTagName('lastBuildDate')[0].innerHTML
 						});
 					}
-					catch(e){
-						return resolve({
-							"name": "Error retrieving feed data",
-							"lastUpdate": ""
-						});
-					}
+					catch(e){ return resolve({"name": "Error retrieving feed data","lastUpdate": ""});}
 				}
-				else{
-					return resolve({
-						"name": "Error retrieving feed data",
-						"lastUpdate": ""
-					});
-				}
+				else return resolve({"name": "Error retrieving feed data","lastUpdate": ""});
 			}
 		};
 		http.open("GET", rssurl);
@@ -32,13 +27,18 @@ function fetchRSS(rssurl){
 	});
 }
 
+/**
+ * @returns the list of active subscriptions stored in the app preferences
+ */
 function getSubs(){
-	if(tizen.preference.exists('subs'))
-		return JSON.parse(tizen.preference.getValue('subs'));
-	else
-		return [];
+	return tizen.preference.exists('subs') ? JSON.parse(tizen.preference.getValue('subs')) : [];
 }
 
+/**
+ * 
+ * @param subs
+ * @returns
+ */
 function setSubs(subs){
 	tizen.preference.setValue('subs', JSON.stringify(subs));
 }
