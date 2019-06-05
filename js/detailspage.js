@@ -21,9 +21,7 @@ function initDetailsPage(){
 
 	document.getElementById('details-delete').addEventListener('click', () => {
 		if(confirm("Are you sure you want to delete this subscription?")){
-			var currentSubs = getSubs();
-			currentSubs.splice(currentSubs.findIndex((item) => item.url === url ), 1);
-			setSubs(currentSubs);
+			deleteSub(url);
 			tau.back();
 		}
 	});

@@ -39,7 +39,15 @@ function getSubs(){
  * @param subs
  * @returns
  */
-function setSubs(subs){
+function addSub(sub){
+	var currentSubs = getSubs();
+	currentSubs.push(newSub);
+	tizen.preference.setValue('subs', JSON.stringify(subs));
+}
+
+function deleteSub(url){
+	var subs = getSubs();
+	subs.splice(currentSubs.findIndex((item) => item.url === url ), 1);
 	tizen.preference.setValue('subs', JSON.stringify(subs));
 }
 

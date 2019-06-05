@@ -38,15 +38,12 @@ function initAddSubPage(){
 	page.querySelector('#addsub-confirm').addEventListener('click', () => {
 		var newSub = addSubValidate(page);
 		if(newSub){
-			var currentSubs = getSubs();
-			currentSubs.push(newSub);
-			setSubs(currentSubs);
+			addSub(newSub);
 			tau.back();
 		}
 	});
 	
 	page.querySelector('.ui-content').addEventListener("sectionchange", e => {
-		console.log("Changing to section "+ e.detail.active)
         pageIndicatorWidget.setActive(e.detail.active);
 		switch(e.detail.active){
 			case 0:
