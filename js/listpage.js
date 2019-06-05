@@ -9,7 +9,6 @@ function initSubsListPage(){
 
 	page.addEventListener("pagehide", () => {
 		listWidget.destroy();
-		listWidget = null;
 	});
 }
 
