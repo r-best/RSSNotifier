@@ -80,7 +80,9 @@ window.onload = function(){
     });
 
 	// Initialize Pages
-	initSubsListPage();
-	initDetailsPage();
-	initAddSubPage();
+    require(['js/listpage.js', 'js/detailspage.js', 'js/addpage.js'], (listPage, detailsPage, addPage) => {
+    	listPage();
+    	detailsPage();
+    	addPage();
+    });
 };
