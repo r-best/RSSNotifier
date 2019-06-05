@@ -18,7 +18,16 @@ function initAddSubPage(){
 		var date = new Date();
 		var hour = ("00"+date.getHours()).slice(-2);
 		var minute = ("00"+date.getMinutes()).slice(-2);
-		page.querySelector('input[type="time"]').value = hour+":"+minute;
+		page.querySelector('#addsub-time').value = hour+":"+minute;
+		
+		// Initialize event handlers on weekday selectors
+		page.querySelector("#sunday").addEventListener('click', weekdayButtonHandler);
+		page.querySelector("#monday").addEventListener('click', weekdayButtonHandler);
+		page.querySelector("#tuesday").addEventListener('click', weekdayButtonHandler);
+		page.querySelector("#wednesday").addEventListener('click', weekdayButtonHandler);
+		page.querySelector("#thursday").addEventListener('click', weekdayButtonHandler);
+		page.querySelector("#friday").addEventListener('click', weekdayButtonHandler);
+		page.querySelector("#saturday").addEventListener('click', weekdayButtonHandler);
 	});
 
 	page.addEventListener("pagehide", () => {
@@ -37,19 +46,52 @@ function initAddSubPage(){
 	});
 	
 	page.querySelector('.ui-content').addEventListener("sectionchange", e => {
+		console.log("Changing to section "+ e.detail.active)
         pageIndicatorWidget.setActive(e.detail.active);
+		switch(e.detail.active){
+			case 0:
+				page.querySelector('header h2').innerHTML = "Enter URL";
+				break;
+			case 1:
+				page.querySelector('header h2').innerHTML = "Enter time";
+				break;
+			case 2:
+				page.querySelector('header h2').innerHTML = "Choose weekdays";
+				break;
+			default:
+				page.querySelector('header h2').innerHTML = "Add subscription";
+				break;
+		}
 	});
 }
 
+function weekdayButtonHandler(e){
+	var button = e.target;
+	if(button.style.backgroundColor === 'green')
+		button.style.backgroundColor = 'black';
+	else
+		button.style.backgroundColor = 'green';
+}
+
 function addSubValidate(){
+	// Get URL & validate it
 	var url = document.getElementById("addsub-url").value;
-	
 	if(!RegExp('^https?:\/\/.*$').test(url)){
 		alert("Please enter a valid URL");
 		return false;
 	}
 	
+	// Get selected time
+	var time = page.querySelector('#addsub-time').value;
+
+	// Get selected weekdays to repeat on
+	var weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].map(
+			day => document.getElementById(day).style.backgroundColor === 'green'
+	);
+	
 	return {
-		url: url
+		url: url,
+		time: time,
+		weekdays: weekdays
 	};
 }

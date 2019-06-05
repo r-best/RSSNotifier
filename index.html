@@ -57,18 +57,25 @@
 	<script src="js/detailspage.js"></script>
 
 	<!-- Page where you can add a new subscription -->
-	<div class="ui-page" id="addsub">
-        <header><h2 class="ui-title">Add RSS Subscription</h2></header>
+	<div class="ui-page" id="addsub" data-enable-page-scroll="false">
+        <header><h2 class="ui-title">Enter URL</h2></header>
         <div id="indicator" class="ui-page-indicator"></div>
-		<div class="ui-content ui-content-padding">
+		<div class="ui-content ui-content-padding" style="height:100%">
 			<div>
 				<section class="ui-section-active">
-					<span>URL:</span><br>
 					<input type="text" id="addsub-url" />
 				</section>
 				<section>
-					<span>Time:</span><br>
-					<input type="time" style="width:50%" />
+					<input type="time" id="addsub-time" style="width:50%" />
+				</section>
+				<section>
+				    <div id="sunday" class="weekday-select">Su</div>
+                    <div id="tuesday" class="weekday-select">Tu</div>
+                    <div id="thursday" class="weekday-select">Th</div>
+                    <div id="saturday" class="weekday-select">Sa</div>
+                    <div id="monday" class="weekday-select">M</div>
+                    <div id="wednesday" class="weekday-select">W</div>
+                    <div id="friday" class="weekday-select">F</div>
 				</section>
 			</div>
 		</div>
