@@ -36,7 +36,7 @@ function initAddSubPage(){
 	});
 
 	page.querySelector('#addsub-confirm').addEventListener('click', () => {
-		var newSub = addSubValidate();
+		var newSub = addSubValidate(page);
 		if(newSub){
 			var currentSubs = getSubs();
 			currentSubs.push(newSub);
@@ -58,6 +58,9 @@ function initAddSubPage(){
 			case 2:
 				page.querySelector('header h2').innerHTML = "Choose weekdays";
 				break;
+			case 3:
+				page.querySelector('header h2').innerHTML = "Update Schedule";
+				break;
 			default:
 				page.querySelector('header h2').innerHTML = "Add subscription";
 				break;
@@ -73,25 +76,27 @@ function weekdayButtonHandler(e){
 		button.style.backgroundColor = 'green';
 }
 
-function addSubValidate(){
+function addSubValidate(page){
 	// Get URL & validate it
 	var url = document.getElementById("addsub-url").value;
 	if(!RegExp('^https?:\/\/.*$').test(url)){
 		alert("Please enter a valid URL");
 		return false;
 	}
-	
-	// Get selected time
-	var time = page.querySelector('#addsub-time').value;
 
 	// Get selected weekdays to repeat on
 	var weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].map(
 			day => document.getElementById(day).style.backgroundColor === 'green'
 	);
+	if(!weekdays.includes(true)){
+		alert("Please select the day(s) of the week this feed usually updates");
+		return false;
+	}
 	
 	return {
 		url: url,
-		time: time,
-		weekdays: weekdays
+		time: page.querySelector('#addsub-time').value,
+		weekdays: weekdays,
+		biweekly: page.querySelector("#addsub-biweekly").checked
 	};
 }
