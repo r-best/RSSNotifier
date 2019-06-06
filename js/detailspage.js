@@ -1,4 +1,4 @@
-define(() => {
+define(['./utils.js'], (utils) => {
 	var page;
 
 	// Export initialization function
@@ -11,7 +11,7 @@ define(() => {
 		page.addEventListener("pageshow", async() => {
 			// Get associated URL from courier and use it to fetch most up-to-date subscription data
 			url = document.getElementById("courier").data;
-			var sub = await fetchRSS(url);
+			var sub = await utils.fetchRSS(url);
 			
 			page.querySelector('.ui-title').innerHTML = sub.name;
 			document.getElementById("details-url").innerHTML = url;

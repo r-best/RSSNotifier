@@ -1,10 +1,10 @@
-define(() => {
+define(['./utils.js'], (utils) => {
 	var page;
 	var listWidget;
 	
 	function refresh(){
 		if(listWidget) listWidget.destroy();
-		var subs = getSubs();
+		var subs = utils.getSubs();
 	
 		if(subs.length){
 			var list = document.getElementById("subs");
@@ -17,7 +17,7 @@ define(() => {
 			new Promise(async(resolve, reject) => {
 				var node = list.childNodes[0];
 				while(true){
-					var rss = await fetchRSS(node.rssurl);
+					var rss = await utils.fetchRSS(node.rssurl);
 					node.querySelector("div.ui-marquee.ui-marquee-gradient").innerHTML = rss.name;
 					node.querySelector("div.ui-li-sub-text").innerHTML = rss.lastUpdate;
 	
