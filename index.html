@@ -38,22 +38,23 @@
 
 	<!-- Page where you can view the details of a subscription -->
 	<div class="ui-page" id="subdetails">
-		<header>
-			<h2 class="ui-title">Sub Settings</h2>
-		</header>
-		<div class="ui-content ui-content-padding">
-			<ul class="ui-listview ui-snap-listview expand-list" id="details-list">
-				<li>
-					<div id="details-url" class="ui-marquee ui-marquee-gradient"></div>
-				</li>
-				<li>
-					<button id="details-delete" class="ui-btn">Delete</button>
-				</li>
-			</ul>
+		<header><h2 class="ui-title">Loading</h2></header>
+        <div id="indicator" class="ui-page-indicator"></div>
+		<div class="ui-content ui-content-padding" style="height:100%">
+		    <div>
+			    <section class="ui-section-active">
+					<p>Updates <span id="details-schedule"></span> every <span id="details-days"></span></p>
+					<p>Last updated <span id="details-lastupdate"></span></p>
+				</section>
+				<section>
+				    <p>This page will hold the description of the newest episode</p>
+				</section>
+				<section>
+                    <button id="details-edit" class="ui-btn">Edit</button>
+                    <button id="details-delete" class="ui-btn">Delete</button>
+				</section>
+			</div>
 		</div>
-		<footer class="ui-footer ui-bottom-button">
-			<a href="#savebtn" class="ui-btn">Save Changes</a>
-		</footer>
 	</div>
 
 	<!-- Page where you can add a new subscription -->
@@ -78,8 +79,8 @@
                     <div id="friday" class="weekday-select">F</div>
 				</section>
 				<section>
-				    <label><input type="radio" name="updateschedule" />Weekly</label><br/>
-                    <label><input type="radio" name="updateschedule" id="addsub-biweekly" />Biweekly</label>
+				    <label><input type="radio" name="updateschedule" value="weekly" />Weekly</label><br/>
+                    <label><input type="radio" name="updateschedule" value="biweekly" />Biweekly</label>
 				</section>
 			</div>
 		</div>

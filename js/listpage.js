@@ -35,7 +35,7 @@ define(['./utils.js'], (utils) => {
 		var li = document.createElement('li');
 		li.rssurl = sub.url;
 		li.addEventListener("click", () => {
-			document.getElementById("courier").data = sub.url;
+			document.getElementById("courier").data = sub;
 			tau.changePage("#subdetails");
 		})
 		

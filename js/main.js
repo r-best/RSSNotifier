@@ -5,11 +5,20 @@ window.onload = function(){
 	// DEBUG: Set up preferences
     tizen.preference.setValue('subs', JSON.stringify([
 		{
-			url: "http://mbmbam.libsyn.com/rss"
+			url: "http://mbmbam.libsyn.com/rss",
+			time: "12:00",
+			weekdays: ["monday"],
+			frequency: "weekly"
 		},{
-			url: "http://adventurezone.libsyn.com/rss"
+			url: "http://adventurezone.libsyn.com/rss",
+			time: "01:01",
+			weekdays: ["thursday"],
+			frequency: "biweekly"
 		},{
-			url: "http://rosebuddies.libsyn.com/rss"
+			url: "http://rosebuddies.libsyn.com/rss",
+			time: "01:01",
+			weekdays: ['wednesday'],
+			frequency: "weekly"
 		}
 	]));
 

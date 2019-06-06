@@ -20,7 +20,7 @@ define(() => {
 		}
 	
 		// Get selected weekdays to repeat on
-		var weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].map(
+		var weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].filter(
 				day => document.getElementById(day).style.backgroundColor === 'green'
 		);
 		if(!weekdays.includes(true)){
@@ -32,7 +32,7 @@ define(() => {
 			url: url,
 			time: page.querySelector('#addsub-time').value,
 			weekdays: weekdays,
-			biweekly: page.querySelector("#addsub-biweekly").checked
+			frequency: page.querySelector('input[name="updateschedule"].checked').value
 		};
 	}
 
