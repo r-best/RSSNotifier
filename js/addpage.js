@@ -1,7 +1,8 @@
-define(() => {
+define(['./utils.js'], (utils) => {
 	var page;
 	var sectionChangerWidget, pageIndicatorWidget;
-	var numSections;
+	
+	var WEEKDAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 	
 	function weekdayButtonHandler(e){
 		var button = e.target;
@@ -11,7 +12,7 @@ define(() => {
 			button.style.backgroundColor = 'green';
 	}
 	
-	function addSubValidate(page){
+	function validate(){
 		// Get URL & validate it
 		var url = document.getElementById("addsub-url").value;
 		if(!RegExp('^https?:\/\/.*$').test(url)){
@@ -20,10 +21,10 @@ define(() => {
 		}
 	
 		// Get selected weekdays to repeat on
-		var weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].filter(
+		var weekdays = WEEKDAYS.filter(
 				day => document.getElementById(day).style.backgroundColor === 'green'
 		);
-		if(!weekdays.includes(true)){
+		if(weekdays.length === 0){
 			alert("Please select the day(s) of the week this feed usually updates");
 			return false;
 		}
@@ -32,8 +33,54 @@ define(() => {
 			url: url,
 			time: page.querySelector('#addsub-time').value,
 			weekdays: weekdays,
-			frequency: page.querySelector('input[name="updateschedule"].checked').value
+			frequency: page.querySelector('input[name="updateschedule"]:checked').value
 		};
+	}
+	
+	function initNew(){
+		// Initialize URL field to empty string
+		page.querySelector('#addsub-url').value = "";
+		
+		// Initialize time picker to current time
+		var date = new Date();
+		var hour = ("00"+date.getHours()).slice(-2);
+		var minute = ("00"+date.getMinutes()).slice(-2);
+		page.querySelector('#addsub-time').value = hour+":"+minute;
+		
+		// Initialize all weekday buttons to off
+		WEEKDAYS.forEach(day => page.querySelector('#'+day).style.backgroundColor = 'black');
+		
+		// Make sure weekly button is checked
+		page.querySelector('#weeklybtn').checked = true;
+		page.querySelector('#biweeklybtn').checked = false;
+	}
+	
+	function initExisting(sub){
+		// Initialize URL field to subscription URL
+		page.querySelector('#addsub-url').value = sub.url;
+		
+		// Initialize time picker to subscription time
+		page.querySelector('#addsub-time').value = sub.time;
+		
+		// Switch on all weekday buttons present in subscription
+		WEEKDAYS.forEach(day => {
+			if(sub.weekdays.includes(day))
+				page.querySelector('#'+day).style.backgroundColor = 'green';
+			else
+				page.querySelector('#'+day).style.backgroundColor = 'black';
+		});
+		
+		// Set frequency switch corresponding to subscription
+		var weekly = page.querySelector('#weeklybtn');
+		var biweekly = page.querySelector('#biweeklybtn');
+		if(sub.frequency === 'weekly'){
+			biweekly.checked = false;
+			weekly.checked = true;
+		}
+		else{
+			weekly.checked = false;
+			biweekly.checked = true;
+		}
 	}
 
 	// Export initialization function
@@ -47,16 +94,17 @@ define(() => {
 				orientation: 'horizontal',
 				useBouncingEffect: false
 			});
-			numSections = page.querySelectorAll('section').length;
+			var numSections = page.querySelectorAll('section').length;
 			pageIndicatorWidget = tau.widget.PageIndicator(page.querySelector("#indicator"), {numberOfPages: numSections});
+			sectionChangerWidget.setActiveSection(0);
 			pageIndicatorWidget.setActive(0);
-	
-			// Initialize time picker to current time
-			var date = new Date();
-			var hour = ("00"+date.getHours()).slice(-2);
-			var minute = ("00"+date.getMinutes()).slice(-2);
-			page.querySelector('#addsub-time').value = hour+":"+minute;
 			
+			var courier =document.getElementById("courier"); 
+			if(courier.value === "EDIT")
+				initExisting(courier.data);
+			else
+				initNew();
+
 			// Initialize event handlers on weekday selectors
 			page.querySelector("#sunday").addEventListener('click', weekdayButtonHandler);
 			page.querySelector("#monday").addEventListener('click', weekdayButtonHandler);
@@ -66,16 +114,26 @@ define(() => {
 			page.querySelector("#friday").addEventListener('click', weekdayButtonHandler);
 			page.querySelector("#saturday").addEventListener('click', weekdayButtonHandler);
 		});
-	
+
 		page.addEventListener("pagehide", () => {
+			page.querySelector("#sunday").removeEventListener('click', weekdayButtonHandler);
+			page.querySelector("#monday").removeEventListener('click', weekdayButtonHandler);
+			page.querySelector("#tuesday").removeEventListener('click', weekdayButtonHandler);
+			page.querySelector("#wednesday").removeEventListener('click', weekdayButtonHandler);
+			page.querySelector("#thursday").removeEventListener('click', weekdayButtonHandler);
+			page.querySelector("#friday").removeEventListener('click', weekdayButtonHandler);
+			page.querySelector("#saturday").removeEventListener('click', weekdayButtonHandler);
 			sectionChangerWidget.destroy();
 			pageIndicatorWidget.destroy();
 		});
-	
+
 		page.querySelector('#addsub-confirm').addEventListener('click', () => {
-			var newSub = addSubValidate(page);
+			var newSub = validate();
 			if(newSub){
-				addSub(newSub);
+				var courier = document.getElementById('courier'); 
+				if(courier.value === "EDIT")
+					utils.deleteSub(courier.data.url);
+				utils.addSub(newSub);
 				tau.back();
 			}
 		});

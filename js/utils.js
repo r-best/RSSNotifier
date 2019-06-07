@@ -41,8 +41,8 @@ define(() => {
 	 * @returns
 	 */
 	function addSub(sub){
-		var currentSubs = getSubs();
-		currentSubs.push(newSub);
+		var subs = getSubs();
+		subs.push(sub);
 		tizen.preference.setValue('subs', JSON.stringify(subs));
 	}
 	
@@ -53,7 +53,7 @@ define(() => {
 	 */
 	function deleteSub(url){
 		var subs = getSubs();
-		subs.splice(currentSubs.findIndex((item) => item.url === url ), 1);
+		subs.splice(subs.findIndex((item) => item.url === url ), 1);
 		tizen.preference.setValue('subs', JSON.stringify(subs));
 	}
 	

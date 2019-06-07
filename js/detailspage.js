@@ -1,16 +1,17 @@
 define(['./utils.js'], (utils) => {
 	var page;
 	var sectionChangerWidget, pageIndicatorWidget;
-	var numSections;
-	var url;
+	var sub;
 	
 	function editButtonClick(){
-		alert("Edit not implemented");
+		document.getElementById("courier").value = "EDIT";
+		document.getElementById("courier").data = sub;
+		tau.changePage("#addsub");
 	}
 	
 	function deleteButtonClick(){
 		if(confirm("Are you sure you want to delete this subscription?")){
-			deleteSub(url);
+			deleteSub(sub.url);
 			tau.back();
 		}
 	}
@@ -34,7 +35,6 @@ define(['./utils.js'], (utils) => {
 	return () => {
 		console.log("Initializing subscription details page");
 		page = document.getElementById("subdetails");
-		var sub;
 	
 		page.addEventListener("pageshow", async() => {
 			sectionChangerWidget = tau.widget.SectionChanger(page.querySelector('.ui-content'), {
@@ -65,6 +65,8 @@ define(['./utils.js'], (utils) => {
 			page.querySelector('#details-edit').removeEventListener('click', editButtonClick);
 			page.querySelector('#details-delete').removeEventListener('click', deleteButtonClick);
 			page.querySelector('.ui-content').removeEventListener("sectionchange", sectionChangeHandler);
+			sectionChangerWidget.destroy();
+			pageIndicatorWidget.destroy();
 		});
 		
 		page.addEventListener('touchmove', e => {

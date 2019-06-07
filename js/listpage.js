@@ -2,6 +2,11 @@ define(['./utils.js'], (utils) => {
 	var page;
 	var listWidget;
 	
+	function addButtonHandler(){
+		document.getElementById("courier").value = "ADD";
+		tau.changePage("#addsub");
+	}
+	
 	function refresh(){
 		if(listWidget) listWidget.destroy();
 		var subs = utils.getSubs();
@@ -58,13 +63,16 @@ define(['./utils.js'], (utils) => {
 		console.log("Initializing subscription list page");
 	    page = document.getElementById("sublist");
 
+		page.querySelector('#addbtn').addEventListener('click', addButtonHandler);
 	    refresh();
 
 		page.addEventListener("pageshow", () => {
+			page.querySelector('#addbtn').addEventListener('click', addButtonHandler);
 			refresh();
 		});
 	
 		page.addEventListener("pagehide", () => {
+			page.querySelector('#addbtn').removeEventListener('click', addButtonHandler);
 			listWidget.destroy();
 		});
 	};
